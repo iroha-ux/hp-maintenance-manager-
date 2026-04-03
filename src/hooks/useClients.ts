@@ -79,7 +79,8 @@ export function useClients() {
     if (!current) return;
     const merged = { ...current, ...updates };
     try {
-      await gasPost({ action: 'updateClient', id: Number(id), ...merged });
+      const { id: _id, ...rest } = merged;
+      await gasPost({ action: 'updateClient', id: Number(id), ...rest });
       await fetchAll();
     } catch (e) {
       setError('更新に失敗しました');
